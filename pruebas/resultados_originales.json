@@ -1,0 +1,394 @@
+[
+ {
+  "id": "PF-07.1",
+  "hu": "HU7",
+  "caso": "Login con contraseña incorrecta",
+  "esperado": "Se rechaza y se audita LOGIN_FALLIDO",
+  "obtenido": "Usuario o contraseña incorrectos.",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-07.2",
+  "hu": "HU7",
+  "caso": "Menú de enfermería sin opciones de auditoría, citas de gestión ni reportes",
+  "esperado": "Menú filtrado por permisos",
+  "obtenido": "⌂ · Inicio · 👤 · Pacientes · 📅 · Agenda y citas · Datos 100% ficticios. · Integraciones simuladas.",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-07.3",
+  "hu": "HU7",
+  "caso": "Enfermera intenta abrir la vista de auditoría por URL",
+  "esperado": "Acceso denegado y registrado",
+  "obtenido": "denegados 0→1",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-07.4",
+  "hu": "HU7",
+  "caso": "Enfermera abre ficha: puede registrar constantes pero no crear atención",
+  "esperado": "Botón \"Nueva atención\" oculto",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-07.5",
+  "hu": "HU7",
+  "caso": "5 intentos fallidos bloquean la cuenta",
+  "esperado": "Cuenta bloqueada (activo=0)",
+  "obtenido": "Cuenta bloqueada por exceso de intentos.",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-07.6",
+  "hu": "HU7",
+  "caso": "Soporte TI desbloquea la cuenta",
+  "esperado": "activo=1",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-01.1",
+  "hu": "HU1",
+  "caso": "RUT con dígito verificador inválido",
+  "esperado": "Mensaje de RUT inválido",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-01.2",
+  "hu": "HU1",
+  "caso": "Validación de RUT afiliado a FONASA",
+  "esperado": "Identidad y previsión validadas en < 1,5 s; datos autocompletados",
+  "obtenido": "854 ms; nombres=\"Martina Josefa\"",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-01.3",
+  "hu": "HU1",
+  "caso": "Registro del paciente validado con su tutor",
+  "esperado": "Paciente VALIDADO, ficha creada, tutor asociado",
+  "obtenido": "[{'e': 'VALIDADO'}]",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-01.4",
+  "hu": "HU1",
+  "caso": "RUT con cédula bloqueada y sin previsión",
+  "esperado": "Alerta visible sin bloquear la atención (criterio 1.2)",
+  "obtenido": "⚠ Registro Civil informa cédula BLOQUEADO. Se permite continuar la atención de urgencia. Registro Civil: BLOQUEADO · Previsión: Sin previsión vigente · Tiempo: 647 ms (cumple < 1,5 s)",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-01.5",
+  "hu": "HU1",
+  "caso": "Se permite registrar al paciente con alerta",
+  "esperado": "Paciente guardado con estado ALERTA y tutor existente reutilizado",
+  "obtenido": "[{'e': 'ALERTA'}]",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-01.6",
+  "hu": "HU1",
+  "caso": "RUT válido inexistente en Registro Civil",
+  "esperado": "Alerta \"no figura en el Registro Civil\"",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-09.1",
+  "hu": "HU9",
+  "caso": "Simular caída de la red externa",
+  "esperado": "Banner de modo contingencia visible",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-09.2",
+  "hu": "HU9",
+  "caso": "Registrar paciente sin conexión externa",
+  "esperado": "Paciente PROVISORIO y validación en cola (criterio 1.3)",
+  "obtenido": "estado=PROVISORIO; pendientes 0→1",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-09.3",
+  "hu": "HU9",
+  "caso": "Firmar atención durante la caída",
+  "esperado": "Registro clínico local guardado; envío a red en cola",
+  "obtenido": "envíos en cola=1",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-09.4",
+  "hu": "HU9",
+  "caso": "Restablecer conexión y sincronizar",
+  "esperado": "Cola vacía; paciente pasa a VALIDADO",
+  "obtenido": "pendientes=0; estado=VALIDADO",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-02.1",
+  "hu": "HU2",
+  "caso": "Carga de ficha con historial",
+  "esperado": "Carga < 2 s (criterio 2.3, escala de prototipo)",
+  "obtenido": "1 ms",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-02.2",
+  "hu": "HU2",
+  "caso": "Constantes vitales fuera de rango para la edad",
+  "esperado": "Se rechaza con mensaje (criterio 2.1)",
+  "obtenido": "Peso fuera del rango plausible para 13 años (25–160 kg).",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-02.3",
+  "hu": "HU2",
+  "caso": "Guardar atención con constantes, diagnóstico y procedimiento",
+  "esperado": "Atención en BORRADOR con datos estructurados",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-02.4",
+  "hu": "HU2",
+  "caso": "Firmar la atención",
+  "esperado": "Estado FIRMADA con hash de firma",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-02.5",
+  "hu": "HU2",
+  "caso": "Otro médico intenta modificar un diagnóstico firmado",
+  "esperado": "Bloqueado y auditado (criterio 2.2)",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-02.6",
+  "hu": "HU2",
+  "caso": "Revertir una atención firmada a borrador desde SQL",
+  "esperado": "Trigger lo impide",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-02.7",
+  "hu": "HU2",
+  "caso": "Enfermera registra constantes vitales en atención existente",
+  "esperado": "Segundo registro de constantes",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-02.8",
+  "hu": "HU2",
+  "caso": "Solicitar examen y registrar su resultado",
+  "esperado": "Examen CON_RESULTADO",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-03.1",
+  "hu": "HU3",
+  "caso": "Consultar antecedentes del paciente en la red pública",
+  "esperado": "Se listan antecedentes de otros establecimientos (simulado)",
+  "obtenido": "2 registros",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-03.2",
+  "hu": "HU3",
+  "caso": "Importar antecedente externo a la ficha",
+  "esperado": "Examen con origen RED_PUBLICA",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-03.3",
+  "hu": "HU3",
+  "caso": "Enfermera no ve la consulta a la red pública",
+  "esperado": "Botón oculto (permiso red.consultar)",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-04.1",
+  "hu": "HU4",
+  "caso": "Generar informe de alta",
+  "esperado": "Documento con identificación, diagnósticos e indicaciones al alta",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-04.2",
+  "hu": "HU4",
+  "caso": "Exportar el reporte",
+  "esperado": "Descarga del archivo y auditoría EXPORTACION",
+  "obtenido": "reporte_informe_alta_1.html",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-04.3",
+  "hu": "HU4",
+  "caso": "Paciente sin atenciones firmadas",
+  "esperado": "No se emite reporte",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-05.1",
+  "hu": "HU5",
+  "caso": "Agendar cita",
+  "esperado": "Cita creada y 4 recordatorios (48 h y 24 h × SMS y correo) + confirmación",
+  "obtenido": "5 notificaciones nuevas",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-05.2",
+  "hu": "HU5",
+  "caso": "Agendar dos citas al mismo profesional y hora",
+  "esperado": "Rechazo por horario ocupado",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-05.3",
+  "hu": "HU5",
+  "caso": "Cancelar cita de Pediatría",
+  "esperado": "Hora liberada e invitación al primero en lista de espera (criterio 5.2)",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-05.4",
+  "hu": "HU5",
+  "caso": "Reprogramar cita",
+  "esperado": "Cita original REPROGRAMADA y nueva cita vinculada",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-05.5",
+  "hu": "HU5",
+  "caso": "Procesar recordatorios vencidos con correo que rebota",
+  "esperado": "Envío fallido derivado a llamada automática 3 h después (criterio 5.3)",
+  "obtenido": "derivadas=3; llamadas=1",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-05.6",
+  "hu": "HU5",
+  "caso": "Adelantar reloj 3 h y procesar",
+  "esperado": "La llamada derivada se ejecuta",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-05.7",
+  "hu": "HU5",
+  "caso": "Tutor responde CONFIRMAR a un SMS de recordatorio",
+  "esperado": "Cita CONFIRMADA",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-06.1",
+  "hu": "HU6",
+  "caso": "Consulta por fiebre",
+  "esperado": "Orientación preliminar clasificada PRIORITARIO",
+  "obtenido": "PRIORITARIO\nPara orientación general (texto de demostración): controle la temper",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-06.2",
+  "hu": "HU6",
+  "caso": "Solicitud de dosis",
+  "esperado": "Rechazo explícito sin indicar medicamento (criterio 6.2)",
+  "obtenido": "RESTRINGIDO\nNo puedo indicar diagnósticos, medicamentos ni dosis. Esa decisión c",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-06.3",
+  "hu": "HU6",
+  "caso": "Síntoma crítico",
+  "esperado": "Advertencia CRÍTICO y botón directo a urgencias 131",
+  "obtenido": "CRITICO\nLo que describe puede ser un signo de alarma. Llame de inmediato al SAMU",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-06.4",
+  "hu": "HU6",
+  "caso": "Consulta de próximas citas",
+  "esperado": "Lista de horas de sus hijos",
+  "obtenido": "INFORMATIVO\nEstas son las próximas horas registradas:\n• Tomás: Pediatría general",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-06.5",
+  "hu": "HU6",
+  "caso": "Almacenamiento de la conversación",
+  "esperado": "Mensajes cifrados (sin texto plano) (criterio 6.3)",
+  "obtenido": "8 mensajes cifrados",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-06.6",
+  "hu": "HU6",
+  "caso": "Tutor intenta abrir auditoría",
+  "esperado": "Acceso denegado",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-08.1",
+  "hu": "HU8",
+  "caso": "Verificar integridad de la cadena de hash",
+  "esperado": "Cadena íntegra",
+  "obtenido": "✔ Cadena íntegra: 101 registros verificados. Ningún registro fue alterado ni eliminado.",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-08.2",
+  "hu": "HU8",
+  "caso": "Intentar UPDATE y DELETE sobre la auditoría",
+  "esperado": "Ambos bloqueados por triggers",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-08.3",
+  "hu": "HU8",
+  "caso": "Los registros identifican usuario, rol, fecha, hora y acción",
+  "esperado": "Sin registros incompletos",
+  "obtenido": "103 registros, 11 tipos de acción",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-08.4",
+  "hu": "HU8",
+  "caso": "Ejecutar DELETE desde la consola SQL",
+  "esperado": "Rechazado y auditado",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-08.5",
+  "hu": "HU8",
+  "caso": "Consultar quién accedió a la ficha de un paciente",
+  "esperado": "Lista de accesos con usuario y rol",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ },
+ {
+  "id": "PF-GEN",
+  "hu": "Todas",
+  "caso": "Errores de JavaScript durante toda la prueba",
+  "esperado": "Ninguno",
+  "obtenido": "",
+  "resultado": "APROBADO"
+ }
+]

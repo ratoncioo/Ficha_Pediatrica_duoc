@@ -1,0 +1,40 @@
+name: Pruebas funcionales en navegador
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  navegador:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 build.py
+      - run: python3 -m pip install -r pruebas/requirements.txt
+      - run: python3 -m playwright install --with-deps chromium
+      - name: Probar la aplicación con la subruta del repositorio
+        run: |
+          mkdir -p /tmp/ficha-pages/Ficha_Pediatrica_duoc
+          cp index.html /tmp/ficha-pages/Ficha_Pediatrica_duoc/index.html
+          python3 -m http.server 8000 --directory /tmp/ficha-pages --bind 127.0.0.1 > /tmp/ficha-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          for intento in 1 2 3 4 5; do
+            if curl --fail --silent http://127.0.0.1:8000/Ficha_Pediatrica_duoc/ > /dev/null; then break; fi
+            sleep 1
+          done
+          FEP_TEST_URL=http://127.0.0.1:8000/Ficha_Pediatrica_duoc/ python3 pruebas/funcional.py
+      - name: Resultados y capturas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pruebas-navegador
+          path: pruebas/salidas/
